@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Navigation from './routes';
 import reportWebVitals from './reportWebVitals';
+import PostsPage from './pages/posts';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Navigation />
+    <PostsPage />
   </React.StrictMode>,
   document.getElementById('root')
 );
