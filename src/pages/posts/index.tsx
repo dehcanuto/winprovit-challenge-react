@@ -8,6 +8,7 @@ function PostsPage() {
   const [users, setUsers] = useState<UserPropTypes[]>([])
   const [userSingle, setUserSingle] = useState<UserPropTypes>()
   const [userPosts, setUserPosts] = useState<PostPropTypes[]>()
+  const [error, setError] = useState<boolean>(false)
 
   const changeUser = (id: number) => {
     console.log(id)
@@ -17,19 +18,29 @@ function PostsPage() {
 
   useEffect(() => {
     fetch('https://jsonplaceholder.typicode.com/users')
-      .then(response => response.json())
-      .then(data => {
+      .then(async response => response.json())
+      .then(async data => {
         setUsers(data)
         setUserSingle(data[0])
+        setError(false)
+      })
+      .catch(error => {
+        console.error('There was an error!', error);
+        setError(true)
       })
   }, [])
 
   useEffect(() => {
     fetch('https://jsonplaceholder.typicode.com/posts')
-      .then(response => response.json())
-      .then(data => {
+      .then(async response => response.json())
+      .then(async data => {
         const posts = data.filter((item: PostPropTypes) => item.userId === userSingle?.id)
         setUserPosts(posts)
+        setError(false)
+      })
+      .catch(error => {
+        console.error('There was an error!', error);
+        setError(true)
       })
   }, [userSingle])
 
@@ -37,6 +48,7 @@ function PostsPage() {
     <div className="h-full min-h-screen bg-gray-100">
       <div className="container mx-auto p-5">
         <div className="md:flex no-wrap md:-mx-2">
+          {!error && (
           <div className="w-full space-y-4 md:w-3/12 md:mx-2">
             <div className="bg-white p-3 border-t-4 border-green-400">
               <div className='mb-8'>
@@ -109,7 +121,19 @@ function PostsPage() {
               ]}
             />
           </div>
-          <div className="w-full space-y-4 md:w-9/12 mx-2">
+          )}
+          <div className="w-full space-y-4 md:w-9/12 mx-auto">
+            {error && (
+              <div className="bg-red-50 border-l-8 border-red-900 mb-2">
+                <div className="flex items-center">
+                  <div className="flex flex-col items-center p-4">
+                      <h5 className="text-red-900 font-semibold text-lg text-center sm:texl-left">
+                        Something wrong has happen. Sorry about that! Please try again.
+                      </h5>
+                  </div>
+                </div>
+            </div>
+            )}
             <div className="bg-green-400 p-3 shadow-lg rounded-lg">
               <label htmlFor="countries" className="text-black font-bold leading-8 my-1">
                 Choice a user
@@ -130,6 +154,11 @@ function PostsPage() {
                   User Posts
                 </h3>
               </div>
+              {error && (
+                <div className='items-center'>
+                  <h4>No Results.</h4>
+                </div>
+              )}
               {userPosts?.map((item: PostPropTypes) => 
                 <PostCard
                   id={item.id}
