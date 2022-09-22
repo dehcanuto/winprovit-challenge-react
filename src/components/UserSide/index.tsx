@@ -11,7 +11,7 @@ const UserSide = ({
         address,
         company
     }: UserPropTypes): ReactElement => (
-    <div className="w-full space-y-4 md:w-3/12 md:mx-2">
+    <div className="w-full space-y-4 md:w-3/12 md:mx-2 mb-5">
         <div className="bg-white p-3 border-t-4 border-green-400">
           <div className='mb-8'>
             <h1 className="text-gray-900 font-bold text-xl leading-8 my-1">
@@ -24,7 +24,7 @@ const UserSide = ({
           <div>
             <h4 className='font-bold'>Personal</h4>
             <ul
-              className="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm">
+              className="bg-gray-100 text-gray-600 text-sm hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm">
               <li className="flex items-center py-3">
                 <span className='font-bold'>Email</span>
                 <span className="ml-auto">{email}</span>

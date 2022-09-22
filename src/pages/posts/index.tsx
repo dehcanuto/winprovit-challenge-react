@@ -58,7 +58,7 @@ function PostsPage() {
   return (
     <div className="h-full min-h-screen bg-gray-100">
       <div className="container mx-auto p-5">
-        <div className="md:flex no-wrap md:-mx-2">
+        <div className="md:flex no-wrap gap-4 md:-mx-2">
           {!error && userSingle && (
             <UserSide {...userSingle}/>
           )}
