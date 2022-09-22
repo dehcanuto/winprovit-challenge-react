@@ -7,42 +7,53 @@ import { PostPropTypes, UserPropTypes } from '../../components/UserSide/types'
 function PostsPage() {
   const [users, setUsers] = useState<UserPropTypes[]>([])
   const [userSingle, setUserSingle] = useState<UserPropTypes>()
-  const [userPosts, setUserPosts] = useState<PostPropTypes[]>()
+  const [userID, setUserID] = useState<number>()
   const [error, setError] = useState<boolean>(false)
 
-  const changeUser = (id: number) => {
-    console.log(id)
-    const single = users.find((item: UserPropTypes) => item.id === id)
-    setUserSingle(single)
+  const handlePosts = async () => {
+    return await fetch('https://jsonplaceholder.typicode.com/posts')
+      .then(async response => response.json())
+      .catch(error => {
+        console.error('There was an error!', error);
+        setError(true)
+      })
   }
 
   useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/users')
-      .then(async response => response.json())
-      .then(async data => {
-        setUsers(data)
-        setUserSingle(data[0])
-        setError(false)
-      })
-      .catch(error => {
-        console.error('There was an error!', error);
-        setError(true)
-      })
+    const init = () => {
+      fetch('https://jsonplaceholder.typicode.com/users')
+        .then(async response => response.json())
+        .then(async data => {
+          setUsers(data)
+          setUserID(data[0].id)
+        })
+        .catch(error => {
+          console.error('There was an error!', error)
+          setError(true)
+        })
+    }
+    init()
   }, [])
 
   useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/posts')
-      .then(async response => response.json())
-      .then(async data => {
-        const posts = data.filter((item: PostPropTypes) => item.userId === userSingle?.id)
-        setUserPosts(posts)
-        setError(false)
+    const updateUser = async () => {
+      const single: any = users.find((item: UserPropTypes) => item.id === userID)
+      const posts = await handlePosts()
+      const userPosts = posts.filter((item: PostPropTypes) => item.userId === userID)
+      setUserSingle({
+        ...single,
+        address: single?.address?.street+ ', '+single?.address?.suite+ ' - '+single?.address?.zipcode+ ' - '+single?.address?.city,
+        company: single?.company?.name,
+        posts: userPosts.map((item: PostPropTypes) => ({
+          id: item.id,
+          title: item.title,
+          body: item.body
+        }))
       })
-      .catch(error => {
-        console.error('There was an error!', error);
-        setError(true)
-      })
-  }, [userSingle])
+    }
+    updateUser()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userID])
 
   return (
     <div className="h-full min-h-screen bg-gray-100">
@@ -68,12 +79,12 @@ function PostsPage() {
                 Choice a user
               </label>
               <select
-                onChange={x => changeUser(+x.target.value)}
+                onChange={x => setUserID(+x.target.value)}
+                defaultValue={userSingle?.id}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               >
-                <option selected>Selecione um usuário</option>
-                {users.map((user: UserPropTypes) => (
-                  <option value={user.id}>{user.name}</option>
+                {users.map((user: UserPropTypes, index) => (
+                  <option key={index} value={user.id}>{user.name}</option>
                 ))}
               </select>
             </div>
@@ -88,8 +99,9 @@ function PostsPage() {
                   <h4>No Results.</h4>
                 </div>
               )}
-              {userPosts?.map((item: PostPropTypes) => 
+              {userSingle?.posts?.map((item: PostPropTypes, index) => 
                 <PostCard
+                  key={index}
                   id={item.id}
                   title={item.title}
                   body={item.body}

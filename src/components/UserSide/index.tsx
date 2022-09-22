@@ -2,8 +2,6 @@ import React from 'react'
 import { ReactElement } from 'react'
 import { UserPropTypes } from './types'
 
-import Card from '../Card'
-
 const UserSide = ({
         email,
         name,
@@ -39,51 +37,17 @@ const UserSide = ({
                 <span className='font-bold'>Website</span>
                 <span className="ml-auto">{website}</span>
               </li>
+              <li className="flex items-center py-3">
+                <span className='font-bold'>Company</span>
+                <span className="ml-auto">{company}</span>
+              </li>
+              <li className="flex flex-col text-left py-3">
+                <span className='font-bold'>Address</span>
+                <span className="ml-auto">{address}</span>
+              </li>
             </ul>
           </div>
         </div>
-        <Card 
-          title="Company"
-          list={[
-            {
-              title: 'Name',
-              value: company.name
-            },
-            {
-              title: 'catchPhrase',
-              value: company.catchPhrase
-            },
-            {
-              title: 'BS',
-              value: company.bs
-            }
-          ]}
-        />
-        <Card 
-          title="Address"
-          list={[
-            {
-              title: 'Street',
-              value: address.street
-            },
-            {
-              title: 'Suite',
-              value: address.suite
-            },
-            {
-              title: 'City',
-              value: address.city
-            },
-            {
-              title: 'Zipcode',
-              value: address.zipcode
-            },
-            {
-              title: 'Geo',
-              value: 'lat: '+address.geo.lat+' / lng: '+address.geo.lng
-            }
-          ]}
-        />
     </div>
 )
 
