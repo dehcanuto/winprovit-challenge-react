@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import Card from '../../components/Card'
 
 import PostCard from '../../components/PostCard'
 import { PostPropTypes, UserPropTypes } from './types'
@@ -65,54 +66,48 @@ function PostsPage() {
                 </ul>
               </div>
             </div>
-            <div className="bg-white p-3">
-              <div>
-                <h4 className='font-bold'>Company</h4>
-                <ul
-                  className="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm">
-                  <li className="flex items-center py-3">
-                    <span className='font-bold'>Name</span>
-                    <span className="ml-auto">{userSingle?.company.name}</span>
-                  </li>
-                  <li className="flex items-center py-3">
-                    <span className='font-bold'>catchPhrase</span>
-                    <span className="ml-auto text-left">{userSingle?.company.catchPhrase}</span>
-                  </li>
-                  <li className="flex items-center py-3">
-                    <span className='font-bold'>bs</span>
-                    <span className="ml-auto text-left">{userSingle?.company.bs}</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className="bg-white p-3">
-              <div>
-                <h4 className='font-bold'>Address</h4>
-                <ul
-                  className="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm">
-                  <li className="flex items-center py-3">
-                    <span className='font-bold'>Street</span>
-                    <span className="ml-auto">{userSingle?.address.street}</span>
-                  </li>
-                  <li className="flex items-center py-3">
-                    <span className='font-bold'>Suite</span>
-                    <span className="ml-auto">{userSingle?.address.suite}</span>
-                  </li>
-                  <li className="flex items-center py-3">
-                    <span className='font-bold'>City</span>
-                    <span className="ml-auto">{userSingle?.address.city}</span>
-                  </li>
-                  <li className="flex items-center py-3">
-                    <span className='font-bold'>Zipcode</span>
-                    <span className="ml-auto">{userSingle?.address.zipcode}</span>
-                  </li>
-                  <li className="flex items-center py-3">
-                    <span className='font-bold'>Geo</span>
-                    <span className="ml-auto">lat: {userSingle?.address.geo.lat} / lng: {userSingle?.address.geo.lng}</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
+            <Card 
+              title="Company"
+              list={[
+                {
+                  title: 'Name',
+                  value: userSingle?.company.name
+                },
+                {
+                  title: 'catchPhrase',
+                  value: userSingle?.company.catchPhrase
+                },
+                {
+                  title: 'BS',
+                  value: userSingle?.company.bs
+                }
+              ]}
+            />
+            <Card 
+              title="Address"
+              list={[
+                {
+                  title: 'Street',
+                  value: userSingle?.address.street
+                },
+                {
+                  title: 'Suite',
+                  value: userSingle?.address.suite
+                },
+                {
+                  title: 'City',
+                  value: userSingle?.address.city
+                },
+                {
+                  title: 'Zipcode',
+                  value: userSingle?.address.zipcode
+                },
+                {
+                  title: 'Geo',
+                  value: 'lat: '+userSingle?.address.geo.lat+' / lng: '+userSingle?.address.geo.lng
+                }
+              ]}
+            />
           </div>
           <div className="w-full md:w-9/12 mx-2 h-64">
             <div className="bg-green-400 p-3 shadow-lg rounded-lg">
