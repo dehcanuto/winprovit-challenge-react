@@ -12,7 +12,7 @@ const Card = ({title, list}: CardPropTypes): ReactElement => (
                 {list.map((item: List) => (
                     <li className="flex items-center py-3">
                         <span className='font-bold'>{item.title}</span>
-                        <span className="ml-auto">{item.value}</span>
+                        <span className="ml-auto text-right">{item.value}</span>
                     </li>
                 ))}
             </ul>
