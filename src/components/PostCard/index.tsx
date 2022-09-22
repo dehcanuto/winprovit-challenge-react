@@ -3,7 +3,7 @@ import { ReactElement } from 'react';
 import { PostCardPropTypes } from './types';
 
 const PostCard = ({id, title, body}: PostCardPropTypes): ReactElement => (
-    <div className="flex bg-white shadow-lg rounded-lg mx-4 md:mx-auto max-w-md md:max-w-2xl">
+    <div className="flex bg-white shadow-lg rounded-lg md:mx-auto max-w-md md:max-w-2xl">
         <div className="flex items-start p-4">
             <div className="flex flex-col h-full justify-between">
                 <div>
