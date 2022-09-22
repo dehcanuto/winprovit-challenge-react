@@ -111,7 +111,7 @@ function PostsPage() {
           </div>
           <div className="w-full md:w-9/12 mx-2 h-64">
             <div className="bg-green-400 p-3 shadow-lg rounded-lg">
-              <label htmlFor="countries" className="text-white font-bold leading-8 my-1">
+              <label htmlFor="countries" className="text-black font-bold leading-8 my-1">
                 Choice a user
               </label>
               <select
@@ -124,20 +124,19 @@ function PostsPage() {
                 ))}
               </select>
             </div>
-
             <div className="my-4"></div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className='col-span-2'>
-                  <h3 className='font-bold text-xl'>User Posts</h3>
-                </div>
-                {userPosts?.map((item: PostPropTypes) => 
-                  <PostCard
-                    id={item.id}
-                    title={item.title}
-                    body={item.body}
-                  />
-                )}
+            <div className="grid grid-cols-2 gap-4">
+              <div className='col-span-2'>
+                <h3 className='font-bold text-xl'>User Posts</h3>
               </div>
+              {userPosts?.map((item: PostPropTypes) => 
+                <PostCard
+                  id={item.id}
+                  title={item.title}
+                  body={item.body}
+                />
+              )}
+            </div>
           </div>
         </div>
       </div>

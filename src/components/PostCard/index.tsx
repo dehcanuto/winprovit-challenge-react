@@ -4,14 +4,16 @@ import { PostCardPropTypes } from './types';
 
 const PostCard = ({id, title, body}: PostCardPropTypes): ReactElement => (
     <div className="flex bg-white shadow-lg rounded-lg mx-4 md:mx-auto max-w-md md:max-w-2xl">
-        <div className="flex items-start px-4 py-6">
-            <div className="">
-                <h2 className="text-lg font-semibold text-gray-900 -mt-1">
-                    {title}
-                </h2>
-                <p className="mt-3 text-gray-700 text-sm">
-                    {body}
-                </p>
+        <div className="flex items-start p-4">
+            <div className="flex flex-col h-full justify-between">
+                <div>
+                    <h2 className="text-lg font-semibold text-gray-900 -mt-1">
+                        {title}
+                    </h2>
+                    <p className="mt-3 text-gray-400 text-sm">
+                        {body}
+                    </p>
+                </div>
                 <div className="mt-4 flex items-center">
                     <div className="flex mr-2 text-gray-700 text-sm mr-3">
                     <svg fill="none" viewBox="0 0 24 24"  className="w-4 h-4 mr-1" stroke="currentColor">
